@@ -50,7 +50,7 @@ export default {
   computed: {
     ...mapGetters('UPS', ['ups']),
     used() {
-      return Mathr.round(parseInt(this.ups.nompower) * (this.usage / 100))
+      return Math.round(parseInt(this.ups.nompower) * (this.usage / 100))
     },
     usage() {
       return parseInt(this.ups.loadpct)
