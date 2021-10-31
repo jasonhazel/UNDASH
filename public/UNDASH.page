@@ -1,9 +1,0 @@
-Menu="Tasks:0"
-Name="undash"
-Type="xmenu"
-Title="undash"
-Nchan="disks,memory,vars,docker,ups"
----
-<script type='text/javascript'>
-window.location.href = '/plugins/undash/index.html'
-</script>

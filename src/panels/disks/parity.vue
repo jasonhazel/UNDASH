@@ -8,7 +8,7 @@
     >
       <template v-slot:additional>
         <template v-if='status == "valid"'>
-          <VIcon :color='status.color'>mdi-check-circle</VIcon>
+          <VIcon :color='color'>mdi-check-circle</VIcon>
         </template>
         <template v-else>
           <VChip label small text-color='white' :color='color' class='text-uppercase'>
