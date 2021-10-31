@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+require_once "$docroot/webGui/include/publish.php";
+
+function gatherDisks() : array {
+  $disks = (array) parse_ini_file('state/disks.ini', true, INI_SCANNER_TYPED);
+
+  $filter = function($check) use ($disks) : array {
+    return array_filter($disks, function($disk) use ($check) : bool {
+      return $disk['type'] == $check && $disk['id'] != '';
+    });
+  };
+  
+  return [
+    'parity' => array_values($filter('Parity')),
+    'data'   => array_values($filter('Data')),
+    'cache'  => array_values($filter('Cache')),
+  ];
+}
+
+function process() : bool {
+  publish('undash-disks', json_encode(gatherDisks(), JSON_NUMERIC_CHECK));
+  return true;
+}
+
+while(process()) { sleep(60); }

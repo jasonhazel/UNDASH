@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+require_once "$docroot/webGui/include/publish.php";
+
+function gatherMemory() : array {
+  exec("free --kilo | grep -Po '^Mem:\s*(\d*)\s*(\d*)\s*(\d*)\s*(\d*)\s*(\d*)\s*(\d*)$' | awk '{print $2, $7}'", $memory);
+  $parts = explode(' ',implode($memory));
+  
+  return [
+    'total' => $parts[0],
+    'available' => $parts[1]
+  ];
+}
+
+function process() : bool {
+  publish('undash-memory', json_encode(gatherMemory(), JSON_NUMERIC_CHECK));
+  return true;
+}
+
+while(process()) { sleep(5); }
+
+
+
+
+

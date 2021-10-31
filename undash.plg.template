@@ -1,0 +1,37 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+<!ENTITY name       "undash">
+<!ENTITY author     "jasonhazel">
+<!ENTITY version    "{{BUILD}}">
+<!ENTITY launch     "undash" >
+<!ENTITY pluginURL  "https://github.com/&author;/&name;/raw/master/&name;.plg">
+<!ENTITY packageURL "https://github.com/&author;/&name;/raw/master/releases/&name;-&version;.txz">
+<!ENTITY packagePath "/boot/config/plugins/&name;">
+<!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
+<!ENTITY nchan      "&emhttp;/nchan/undash">
+]>
+
+<PLUGIN  name="&name;"
+         author="&author;"
+         version="&version;"
+         launch="&launch;"
+         pluginURL="&pluginURL;">
+
+  <CHANGES>
+
+  </CHANGES>
+
+  <FILE Name="&packagePath;/&name;-&version;.txz" Run="upgradepkg --install-new">
+    <URL>&packageURL;</URL>
+  </FILE>
+
+  <FILE Run="/bin/bash" Method="remove">
+    <INLINE>
+      removepkg &packagePath;/*.txz
+
+      rm -rf &packagePath;
+      rm -rf &emhttp;
+    </INLINE>
+  </FILE>
+</PLUGIN>

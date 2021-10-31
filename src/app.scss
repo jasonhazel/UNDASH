@@ -1,0 +1,26 @@
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.v-application {
+  background-color: var(--v-background-base) !important;
+}
+.v-app-bar {
+  background: linear-gradient( 90deg,var(--v-primary-base), var(--v-secondary-base));
+}
+
+.theme--dark {
+  &.v-tabs {
+    .v-tab {
+      color: #ffffff;
+    }
+    .v-tabs-slider {
+      background-color: #ffffff;
+    }
+  }
+
+  &.v-toolbar.v-sheet {
+    background-color: #1E1E1E;
+  }
+}

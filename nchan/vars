@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+require_once "$docroot/webGui/include/publish.php";
+
+function gatherVar() : array {
+  $vars = (array) parse_ini_file('state/var.ini');
+  $vars = array_change_key_case($vars, CASE_LOWER);
+  exec("uptime -p | sed 's/up\s//'", $uptime);
+
+  $vars['uptime'] = implode($uptime);
+  return $vars;
+}
+
+function process() : bool {
+  publish('undash-vars', json_encode(gatherVar(), JSON_NUMERIC_CHECK));
+  return true;
+}
+
+while(process()) { sleep(10); }
+
+
+
+
+

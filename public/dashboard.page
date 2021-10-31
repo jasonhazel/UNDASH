@@ -1,0 +1,24 @@
+Menu="Dashboard"
+Icon="undash.png"
+---
+<div id='undash-launch'>LAUNCH undash</div>
+<style>
+    #undash-launch {
+        text-align: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 42px;
+        border: 1px solid #EF5350;
+        padding: 10px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #ff7043, #ffa726);
+        color: white;
+    }
+</style>
+<script type='text/javascript'>
+    let launchundash = document.querySelector('#undash-launch')
+    document.querySelector('.frame').prepend(launchundash)
+
+    launchundash.addEventListener('click', function(e) { window.open('/plugins/undash/index.html', 'undash') })
+</script>
+

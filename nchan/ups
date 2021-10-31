@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+require_once "$docroot/webGui/include/publish.php";
+
+function gatherUps() : array {
+  exec("/sbin/apcaccess 2>/dev/null  | tr -s ' '", $apc);
+
+  // clean up output
+  $parts = array_map(function($row) {
+    return array_map('trim', explode(':', $row));
+  }, $apc);
+
+  // cleaned into an associative array
+  $info = array_combine(
+    array_column($parts, 0),
+    array_column($parts, 1)
+  );
+
+  $info = array_change_key_case($info);
+
+  $filterPercent  = function($input) { return str_replace(' Percent', '', $input); };
+  $filterVolts    = function($input) { return str_replace(' Volts', '', $input); };
+  $filterWatts    = function($input) { return str_replace(' Watts', '', $input); };
+
+  $info['linev']    = $filterVolts($info['linev']);
+  $info['loadpct']  = $filterVolts($info['loadpct']);
+  $info['bcharge']  = $filterPercent($info['bcharge']);
+  $info['nompower'] = $filterWatts($info['nompower']);
+  $info['nominv']   = $filterVolts($info['nominv']);
+  $info['nombattv'] = $filterVolts($info['nombattv']);
+  $info['battv']    = $filterVolts($info['battv']);
+
+  return $info;
+}
+
+function process() : bool {
+  publish('undash-ups', json_encode(gatherUps(), JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES));
+  return true;
+}
+
+while(process()) { sleep(5); }
+
+
+
+
+

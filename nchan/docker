@@ -1,0 +1,49 @@
+#!/usr/bin/env php
+<?php
+$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+
+require_once "$docroot/webGui/include/publish.php";
+require_once "$docroot/plugins/dynamix.docker.manager/include/DockerClient.php";
+
+function gatherDocker() : array {
+  $client = new DockerClient();
+  $client->flushCaches();
+  $templates = new DockerTemplates();
+
+  $containers = $client->getDockerContainers();
+  $everything = $templates->getAllInfo();
+
+  $compiled = [];
+
+  foreach($containers as $container) {
+    $name = $container['Name'];
+    $info = &$everything[$name];
+
+    $status = $info['running'] ? ($info['paused'] ? 'paused' : 'started') : 'stopped';
+
+    $record = [
+      'id'      => $container['Id'],
+      'name'    => $name,
+      'status'  => $status,
+      'url'     => html_entity_decode($info['url']),
+      'icon'    => $info['icon'] ?: '/plugins/dynamix.docker.manager/images/question.png',
+      'updated' => $info['updated']
+    ];
+
+    array_push($compiled, $record);
+  }
+
+  return $compiled;
+}
+
+function process() : bool {
+  publish('undash-docker', json_encode(gatherDocker(), JSON_NUMERIC_CHECK));
+  return true;
+}
+
+while(process()) { sleep(5); }
+
+
+
+
+
