@@ -49,6 +49,7 @@ export default {
   computed: {
     ...mapGetters(['opened']),
     panelKey() {
+      console.log(this.$vnode)
       return this.$vnode.key || this.$vnode.parent.key
     },
     expanded: {
