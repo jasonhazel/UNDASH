@@ -1,7 +1,7 @@
 <template>
   <Panel 
     :title='title' 
-    :opened.sync='expand' 
+      
     :progress-color='processors.cpu.host | thresholdColor'
     :progress-value='processors.cpu.host'
   >

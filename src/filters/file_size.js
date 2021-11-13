@@ -7,7 +7,7 @@ import Vue from 'vue'
 // just wrapped the top solution into a filter
 
 Vue.filter('fileSize', function(bytes, decimals = 0, size = 1000) {
-  bytes = bytes * 1000
+  bytes = bytes * size
   if (bytes === 0) return '0 Bytes';
 
   const dm = decimals < 0 ? 0 : decimals;

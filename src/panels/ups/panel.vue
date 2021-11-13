@@ -2,7 +2,7 @@
   <div>
     <Panel v-if="ups.nompower"
       title='UPS' 
-      :opened.sync='expand' 
+        
       :progress-color='charge | reverseThresholdColor'
       :progress-value='charge'
     >

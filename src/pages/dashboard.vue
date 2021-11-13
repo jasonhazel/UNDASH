@@ -1,18 +1,18 @@
 <template>
   <VRow no-gutters>
     <VCol cols='12' sm='12' md='4' lg='3' xl='3'>
-      <ParityPanel />
+      <ParityPanel key='parityPanel' />
       
-      <DisksPanel :disks="disks.data" title='Data' />
-      <DisksPanel :disks='disks.cache' title='Cache' />
+      <DisksPanel key='dataPanel' :disks="disks.data" title='Data' />
+      <DisksPanel key='cachePanel' :disks='disks.cache' title='Cache' />
 
-      <ProcessorsPanel />
-      <MemoryPanel />
-      <UpsPanel />
+      <ProcessorsPanel key='processorPanel' />
+      <MemoryPanel key='memoryPanel' />
+      <UpsPanel key='upsPanel' />
     </VCol>
 
     <VCol cols='12' sm='12' md='8' lg='9' xl='9'>
-      <DockerPanel />
+      <DockerPanel key='dockerPanel' />
     </VCol>       
   </VRow>
 </template>

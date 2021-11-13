@@ -7,7 +7,7 @@ export default {
       parity: [],
       data: [],
       cache: []
-    }
+    },
   },
   mutations: {
     SET(state, value) {

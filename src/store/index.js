@@ -24,6 +24,7 @@ var store = new Vuex.Store({
     version: null,
     options: {
       dark: false,
+      opened: { }
     },
     vms: []
   },
@@ -36,6 +37,12 @@ var store = new Vuex.Store({
       if (!existing) {
         state.plugins.push(value)
       }
+    },
+    TOGGLE_OPENED(state, panel) {
+      state.options.opened[panel] = !state.options.opened[panel]
+    },
+    SET_OPENED(state, { panel, value }) {
+      Vue.set(state.options.opened, panel, value)
     }
   },
   actions: {
@@ -44,12 +51,19 @@ var store = new Vuex.Store({
     },
     registerPlugin({ commit }, value = {}) {
       commit('REGISTER_PLUGIN', value)
+    },
+    toggleOpened({ commit }, panel) {
+      commit('TOGGLE_OPENED', panel)
+    },
+    setOpened({ commit }, settings) {
+      commit('SET_OPENED', settings)
     }
   },
   getters: {
     undash: state => state.undash,
     // front end settings only.
     dark: state => state.options.dark,
+    opened: state => state.options.opened,
     // faked below
     vms: state => state.vms,
   }

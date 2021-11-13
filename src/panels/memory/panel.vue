@@ -1,7 +1,7 @@
 <template>
   <Panel 
     title='Memory' 
-    :opened.sync='expand' 
+      
     :progress-color='usage | thresholdColor'
     :progress-value='usage'
   >

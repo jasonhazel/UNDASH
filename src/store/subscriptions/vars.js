@@ -31,31 +31,3 @@ export default {
   }
 }
 
-
-// import NchanSubscriber from 'nchan'
-
-
-// export default function (store) {
-//   const log = (...messages) => {
-//     console.log('[undash-vars]', ...messages)
-//   }
-
-//   var subscription = new NchanSubscriber('/sub/undash-vars')
-
-//   subscription.on('connect', () => {
-//     log('connected')
-//   })
-
-//   subscription.on('error', (_, description) => {
-//     log('error', description)
-//   })
-
-
-//   subscription.on('message', (message) => {
-//     store.dispatch('updateVars', JSON.parse(message))
-//   })
-
-//   return subscription
-// }
-
-

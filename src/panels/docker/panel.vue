@@ -1,5 +1,5 @@
 <template>
-  <Panel title='Docker' :opened.sync='expand'>
+  <Panel title='Docker'  >
     <template v-slot:collapsed>
       <div class='d-none d-sm-flex'>
         <Container small v-for='container in launchable' :key='`collapsed-${container.name}`' :container='container' />

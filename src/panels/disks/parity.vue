@@ -2,7 +2,7 @@
   <div>
     <Panel v-if="count > 0"
       title='Parity' 
-      :opened.sync='expand' 
+        
       :progress-color='color'
       progress-value='100'
     >

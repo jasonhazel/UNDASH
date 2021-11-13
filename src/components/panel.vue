@@ -5,19 +5,19 @@
       <VToolbarTitle v-if='title'>{{ title }}</VToolbarTitle>
       <VSpacer />
       <VSlideYReverseTransition>
-        <div v-show='!opened'>
+        <div v-show='!expanded'>
           <slot name='collapsed' />
         </div>
       </VSlideYReverseTransition>
       <slot name='additional' />
 
-      <VBtn icon v-on:click="$emit('update:opened', !opened)" :class="{ opened: opened }">
+      <VBtn icon v-on:click="expanded = !expanded" :class="{ opened: expanded }">
         <VIcon>mdi-chevron-down</VIcon>
       </VBtn>
     </VToolbar>
     <VSheet>
       <VExpandTransition>
-        <div v-show="opened">
+        <div v-show="expanded">
           <slot />
         </div>
       </VExpandTransition>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Panel',
   props: {
@@ -41,14 +43,27 @@ export default {
       type: [String, Boolean],
       default: false
     },
-    opened: {
-      type: Boolean,
-      default: false
-    },
   },
-  data: () => ({
-    
-  })
+  data: () => ({ }),
+  mounted() { },
+  computed: {
+    ...mapGetters(['opened']),
+    panelKey() {
+      return this.$vnode.key || this.$vnode.parent.key
+    },
+    expanded: {
+      get() { 
+        return this.opened[this.panelKey]
+      },
+      set(val) { 
+        this.$store.dispatch('setOpened', {
+          panel: this.panelKey,
+          value: val
+        })
+        return this.opened[this.panelKey]
+      }
+    }
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <Panel 
     :title='title' 
-    :opened.sync='expand' 
+      
     :progress-color='usedPercentage | thresholdColor'
     :progress-value='usedPercentage'
   >

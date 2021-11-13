@@ -38,6 +38,7 @@ export default {
   },
   mounted() {
     this.$vuetify.theme.dark = this.dark
+    document.title = this.name
   },
   methods: {
 
